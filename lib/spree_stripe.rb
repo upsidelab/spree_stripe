@@ -1,0 +1,5 @@
+require 'spree_core'
+require 'spree_extension'
+require 'spree/stripe/engine'
+require 'spree/stripe/version'
+require 'spree/stripe/configuration'
