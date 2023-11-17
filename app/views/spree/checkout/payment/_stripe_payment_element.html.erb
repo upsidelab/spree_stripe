@@ -1,0 +1,37 @@
+<% mount_node_id = "paymentElement-#{payment_method.id}" %>
+
+<div id="<%= mount_node_id %>">
+</div>
+
+<%= javascript_include_tag 'spree_stripe/checkout', data: { turbo_track: 'reload' } %>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const spreeStripe = new window.SpreeStripe('<%= @order.token %>', {});
+  const paymentMethodId = '<%= payment_method.id %>';
+  const setupOptions = {
+    paymentMethodId: '<%= payment_method.id %>',
+    mountNodeId: '<%= mount_node_id %>',
+    publishableKey: '<%= payment_method.preferences[:publishable_key] %>',
+    formId: 'checkout_form_payment',
+    stripeAppearance: {},
+    stripeOptions: {}
+  };
+  const paymentMethodRadioSelector = "input[name='order[payments_attributes][][payment_method_id]']";
+
+  const paymentMethodRadios = document.querySelectorAll(paymentMethodRadioSelector);
+  for (const radio of paymentMethodRadios) {
+    radio.addEventListener('change', function (e) {
+      if (this.value === paymentMethodId) {
+        spreeStripe.setupPaymentElement(setupOptions);
+      } else {
+        spreeStripe.cleanupPaymentElement(setupOptions);
+      }
+    });
+  }
+
+  const initialPaymentMethodId = document.querySelector(`${paymentMethodRadioSelector}:checked`).value;
+  if (initialPaymentMethodId === paymentMethodId) {
+    spreeStripe.setupPaymentElement(setupOptions);
+  }
+</script>

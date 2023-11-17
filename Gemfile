@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'spree', github: 'spree/spree', branch: 'main'
-gem 'spree_backend', github: 'spree/spree', branch: 'main'
+gem 'spree_backend', github: 'spree/spree_backend', branch: 'main'
 gem 'rails-controller-testing'
 
 if ENV['DB'] == 'mysql'

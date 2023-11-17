@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="order-show-number text-uppercase w-100 text-center">Waiting for payment confirmation</h1>
+  <div class="row">
+    <div class="mx-auto">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="order-show"></div>
+</div>
+
+<%= javascript_include_tag 'spree_stripe/checkout', data: { turbo_track: 'reload' } %>
+
+<script>
+  const spreeStripe = new window.SpreeStripe('<%= @order.token %>', {});
+  spreeStripe.waitForPayment();
+</script>
