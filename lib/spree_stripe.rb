@@ -1,5 +1,6 @@
 require 'stripe'
 require 'spree_core'
 require 'spree_extension'
+require 'spree_stripe/dependencies'
 require 'spree_stripe/engine'
 require 'spree_stripe/version'
