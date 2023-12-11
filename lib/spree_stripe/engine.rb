@@ -14,7 +14,7 @@ module SpreeStripe
       g.test_framework :rspec
     end
 
-    initializer 'spree_stripe.environment', before: :load_config_initializers do |_app|
+    initializer 'spree_stripe.environment', before: :load_config_initializers do |app|
       app.config.spree_stripe = Environment.new(SpreeStripe::Dependencies.new)
     end
 
